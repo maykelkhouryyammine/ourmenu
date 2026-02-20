@@ -6,75 +6,6 @@
   <meta name="theme-color" content="#faf8f4" />
   <title>مسايا زمان — Massaya Zaman</title>
 
-  <!-- ═══════════════════════════════════════════════
-       SETUP INSTRUCTIONS (read once, then delete)
-       ═══════════════════════════════════════════════
-
-  STEP 1 — Create your Google Sheet
-  ──────────────────────────────────
-  Create a Google Sheet with these exact columns in row 1:
-    A: tab        (food / drinks / hookah / special)
-    B: type       (appetizer / main / beverage / arguileh / special)
-    C: category_ar
-    D: category_en
-    E: name_ar
-    F: name_en
-    G: price      (number, leave empty if item has sizes)
-    H: sizes      (JSON string like {"وسط":4,"كبير":6} — leave empty if fixed price)
-    I: order      (number for sorting, e.g. 1, 2, 3…)
-    J: available  (TRUE or FALSE)
-
-  Special row: for the "special formula" card, set tab=special, type=special,
-  leave name columns empty, and put the full description text in column K (desc_ar)
-  and column L (desc_en). Leave price/sizes empty.
-
-  STEP 2 — Create the Apps Script
-  ─────────────────────────────────
-  In your Sheet: Extensions → Apps Script
-  Paste this code and click Save, then Deploy → New deployment → Web app
-  Set "Who has access" to "Anyone" → Deploy → copy the URL
-
-  ────── PASTE THIS IN APPS SCRIPT ──────
-
-  function doGet() {
-    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Menu");
-    const rows = sheet.getDataRange().getValues();
-    const headers = rows[0];
-    const data = rows.slice(1).map(row => {
-      const obj = {};
-      headers.forEach((h, i) => obj[h] = row[i]);
-      // Parse sizes JSON
-      if (obj.sizes && typeof obj.sizes === 'string' && obj.sizes.trim()) {
-        try { obj.sizes = JSON.parse(obj.sizes); } catch(e) { obj.sizes = {}; }
-      } else {
-        obj.sizes = {};
-      }
-      return obj;
-    }).filter(r => r.available === true || r.available === 'TRUE');
-
-    return ContentService
-      .createTextOutput(JSON.stringify(data))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-
-  ────── END OF APPS SCRIPT ──────
-
-  STEP 3 — Paste your Apps Script URL below
-  ───────────────────────────────────────────
-  Find the line:  const SHEET_API = "YOUR_APPS_SCRIPT_URL_HERE";
-  Replace it with your deployed URL.
-
-  STEP 4 — Host on GitHub Pages
-  ──────────────────────────────
-  1. Create a new GitHub repository (public)
-  2. Upload this file as  index.html
-  3. Go to Settings → Pages → Source: main branch / root
-  4. Your site will be live at: https://YOUR-USERNAME.github.io/REPO-NAME/
-
-  That's it! Edit your menu by editing the Google Sheet.
-  No code changes needed ever again.
-  ═══════════════════════════════════════════════ -->
-
   <style>
     /* ── Reset & Base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1173,26 +1104,21 @@
   <p class="footer-phone">06 668 266 / 03 338 233</p>
   <hr/>
   <p class="footer-copy" id="footer-copy">
-    جميع الحقوق محفوظة لمسايا زمان — Copyright 2026 |
+    جميع الحقوق محفوظة لمسايا زمان — Copyright 2024–25 |
     <a href="https://maykelkhouryyammine.github.io" target="_blank">MaykelYammine</a>
   </p>
 </footer>
 
 <script>
 // ══════════════════════════════════════════════════════
-//  ▶  PASTE YOUR APPS SCRIPT URL HERE
+//  ▶  YOUR APPS SCRIPT URL (UPDATED)
 // ══════════════════════════════════════════════════════
-const SHEET_API = "https://script.google.com/macros/s/AKfycbwe0lLv2ucBBniQmplNnGFDSfWueqrWbvfVPWVBOe89-NX6GwCwWHw2pjMcGuBFRZBI/exec";
+const SHEET_API = "https://script.google.com/macros/s/AKfycbz_vUwsOLh-EuTg0oy0FD4_nvfUAPKw6nOZb7JXfrj5P4iA_lsbtGsifOGXGWSWD1N2/exec";
 
 // ══════════════════════════════════════════════════════
 //  ▶  FEEDBACK SHEET URL (optional)
-//     If you want feedback saved to a second sheet,
-//     deploy a separate Apps Script with doPost() and
-//     paste its URL here. Otherwise leave as "".
 // ══════════════════════════════════════════════════════
 const FEEDBACK_API = "";
-
-// ══════════════════════════════════════════════════════
 
 // ── State ──
 let lang       = 'ar';
@@ -1390,7 +1316,7 @@ function setTab(tab) {
 
 // ── Fetch menu ──
 async function fetchMenu() {
-  if (SHEET_API === "https://script.google.com/macros/s/AKfycbwe0lLv2ucBBniQmplNnGFDSfWueqrWbvfVPWVBOe89-NX6GwCwWHw2pjMcGuBFRZBI/exec") {
+  if (SHEET_API === "YOUR_APPS_SCRIPT_URL_HERE") {
     document.getElementById('loading').style.display = 'none';
     document.getElementById('menu-content').style.display = 'block';
     document.getElementById('menu-content').innerHTML =
